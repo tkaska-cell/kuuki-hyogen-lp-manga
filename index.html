@@ -17,6 +17,7 @@
     --yellow:#ffd45e; --yellow-soft:#fff3cf; --yellow-deep:#f7b733;
     --clay:#e8824a; --clay-deep:#d2632b; --ink:#3f342a; --ink-soft:#7c6f60;
     --cream:#fffaf0; --line:#f0e3c4;
+    --pink:#ff8fab; --pink-soft:#ffe3ea; --mint:#54c5ab; --mint-soft:#daf4ec;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
@@ -135,6 +136,41 @@
   .bar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;justify-content:center;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(255,212,94,0),rgba(255,212,94,.95) 35%);pointer-events:none;}
   .bar a{pointer-events:auto;width:100%;max-width:468px;text-align:center;background:var(--clay);color:#fff;font-weight:900;text-decoration:none;font-size:16px;padding:15px;border-radius:999px;box-shadow:0 5px 0 var(--clay-deep);}
 
+  /* ===== 遊び心デコレーション ===== */
+  .bg-pink{background:var(--pink-soft);}
+  .bg-mint{background:var(--mint-soft);}
+  .bg-cream{background:var(--cream);}
+  .bg-yellow{background:var(--yellow);}
+  section{overflow:hidden;}
+
+  /* ドット背景 */
+  .dots::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(63,52,42,.07) 2.5px,transparent 2.5px);background-size:24px 24px;pointer-events:none;}
+  .dots>*{position:relative;}
+
+  /* 傾きステッカー */
+  .sticker{display:inline-block;font-weight:900;font-size:13px;color:#fff;background:var(--pink);padding:6px 15px;border-radius:11px;transform:rotate(-4deg);box-shadow:2px 3px 0 rgba(63,52,42,.18);border:2px solid #fff;letter-spacing:.03em;}
+  .sticker.mint{background:var(--mint);}
+  .sticker.clay{background:var(--clay);}
+  .sticker.ink{background:var(--ink);}
+  .sticker.yel{background:var(--yellow-deep);color:var(--ink);}
+
+  /* キラッと */
+  .deco{position:absolute;pointer-events:none;font-size:24px;line-height:1;z-index:3;filter:drop-shadow(0 1px 1px rgba(0,0,0,.06));animation:tw 2.6s ease-in-out infinite;}
+  @keyframes tw{0%,100%{transform:scale(.85) rotate(-6deg);opacity:.55;}50%{transform:scale(1.15) rotate(6deg);opacity:1;}}
+
+  /* 手描き風まる囲み */
+  .circ{position:relative;white-space:nowrap;}
+  .circ::after{content:"";position:absolute;left:-8px;right:-8px;top:-4px;bottom:-4px;border:3px solid var(--clay);border-radius:48% 52% 50% 50%/55% 50% 50% 45%;transform:rotate(-2deg);pointer-events:none;}
+
+  /* マステ */
+  .tape{position:relative;}
+  .tape::before{content:"";position:absolute;top:-13px;left:50%;width:128px;height:28px;transform:translateX(-50%) rotate(-3deg);background:repeating-linear-gradient(45deg,rgba(255,159,40,.5) 0 8px,rgba(255,180,80,.5) 8px 16px);box-shadow:0 1px 3px rgba(0,0,0,.1);}
+
+  /* 波・ギザ区切り */
+  .wave,.zig{line-height:0;}
+  .wave svg,.zig svg{display:block;width:100%;height:34px;}
+  .tilt-l{transform:rotate(-1.5deg);} .tilt-r{transform:rotate(1.5deg);}
+
   .reveal{opacity:0;transform:translateY(18px);transition:.6s ease;}
   .reveal.in{opacity:1;transform:none;}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;}}
@@ -154,14 +190,18 @@
   </section>
 
   <!-- まんが -->
-  <section class="manga">
-    <div class="head reveal"><div class="label">★ MANGA ★</div><h2>まんがで読む、<span class="big">この講座のはなし</span></h2></div>
-    <div class="manga-frame reveal"><img src="assets/manga_story.jpg" alt="4コマ漫画：人前で緊張する主人公が『笑わせなくていい』と気づいてラクになる物語"></div>
+  <section class="manga bg-pink">
+    <span class="deco" style="top:26px;left:16px">✏️</span>
+    <span class="deco" style="top:64px;right:20px">💭</span>
+    <div class="head reveal"><span class="sticker clay tilt-l">まずはコレ！</span><div class="label" style="margin-top:12px">★ MANGA ★</div><h2>まんがで読む、<span class="circ">この講座</span>のはなし</h2></div>
+    <div class="manga-frame reveal tape tilt-r"><img src="assets/manga_story.jpg" alt="4コマ漫画：人前で緊張する主人公が『笑わせなくていい』と気づいてラクになる物語"></div>
   </section>
 
   <!-- 共感 -->
-  <section class="reveal">
-    <div class="head"><div class="label">こんなこと、ありませんか？</div><h2>人前で話すたび、<br><span class="big">どっと疲れる…</span></h2></div>
+  <section class="reveal bg-cream dots">
+    <span class="deco" style="top:40px;right:18px">😣</span>
+    <span class="deco" style="bottom:30px;left:16px">💧</span>
+    <div class="head"><span class="sticker tilt-r">あるある…</span><div class="label" style="margin-top:12px">こんなこと、ありませんか？</div><h2>人前で話すたび、<br><span class="big">どっと疲れる…</span></h2></div>
     <img class="char" src="assets/yuta_worried.jpg" alt="人前で緊張して悩む様子">
     <div class="bubbles">
       <div class="bubble">人前だと、相手の反応が気になりすぎる…</div>
@@ -172,17 +212,20 @@
   </section>
 
   <!-- 再定義 -->
-  <section class="reveal" style="background:var(--yellow-soft)">
-    <div class="head"><div class="label">でも、安心してください</div></div>
-    <div class="manga-frame" style="text-align:center;padding:28px 20px">
+  <section class="reveal bg-mint">
+    <span class="deco" style="top:34px;left:20px">🍃</span>
+    <span class="deco" style="top:50px;right:24px">✨</span>
+    <div class="head"><span class="sticker mint tilt-l">だいじょうぶ</span><div class="label" style="margin-top:12px">でも、安心してください</div></div>
+    <div class="manga-frame tilt-r" style="text-align:center;padding:30px 20px">
       <h2 style="font-size:clamp(22px,6vw,28px)">それ、<span class="marker">あなたのせい</span><br>じゃないんです。</h2>
       <p style="font-weight:700;margin-top:12px;color:var(--ink-soft)">「話し方」ではなく、<br><strong style="color:var(--clay-deep)">空気との“距離感”</strong>の問題だから。</p>
     </div>
   </section>
 
   <!-- やらない -->
-  <section class="reveal">
-    <div class="head"><div class="label">だから、この講座は…</div><h2><span class="big">「笑わせる練習」</span><br>は、しません。</h2></div>
+  <section class="reveal bg-cream">
+    <span class="deco" style="top:36px;right:20px">🚫</span>
+    <div class="head"><span class="sticker ink tilt-r">NG集</span><div class="label" style="margin-top:12px">だから、この講座は…</div><h2><span class="big">「笑わせる練習」</span><br>は、しません。</h2></div>
     <div class="dont">
       <div class="row"><span class="ic">🙅</span><div>無理に笑わせる練習</div></div>
       <div class="row"><span class="ic">🙅</span><div>相手を下げる盛り上げ方</div></div>
@@ -193,8 +236,10 @@
   </section>
 
   <!-- やること -->
-  <section class="reveal do" style="background:var(--yellow-soft)">
-    <div class="head"><div class="label">かわりに、やること</div><h2>場がゆるむ、<br><span class="big">4つの「ひと言」</span></h2></div>
+  <section class="reveal do bg-yellow dots">
+    <span class="deco" style="top:30px;left:18px">🌟</span>
+    <span class="deco" style="bottom:28px;right:20px">🗣️</span>
+    <div class="head"><span class="sticker yel tilt-l">こっちが本題！</span><div class="label" style="margin-top:12px">かわりに、やること</div><h2>場がゆるむ、<br><span class="big">4つの「ひと言」</span></h2></div>
     <div class="row"><span class="num">1</span><div>空気を実況する、ひと言<div class="mini">例:「この空気、どうすればいいですか？笑」</div></div></div>
     <div class="row"><span class="num">2</span><div>スベりそうな時の、逃げ言葉術<div class="mini">例:「刺さった人だけ、持って帰ってください」</div></div></div>
     <div class="row"><span class="num">3</span><div>崩れない、立ち位置づくり<div class="mini">例:「今日はこんなテンションでいきますね」</div></div></div>
@@ -203,7 +248,9 @@
 
   <!-- USP -->
   <section class="usp reveal">
-    <div class="head"><div class="label">なぜ、この人から学ぶの？</div><h2>「話し方の先生」じゃ、<br>ありません。</h2></div>
+    <span class="deco" style="top:30px;left:18px">✨</span>
+    <span class="deco" style="top:60px;right:22px">⭐</span>
+    <div class="head"><span class="sticker yel tilt-l">ここ重要！</span><div class="label" style="margin-top:12px">なぜ、この人から学ぶの？</div><h2>「話し方の先生」じゃ、<br>ありません。</h2></div>
     <img class="char lg" src="assets/hiroshi.jpg" alt="講師・前野ひろし（イラスト）">
     <p style="font-weight:700;margin-top:6px">今も毎週、本番の現場に立つ<br><strong style="color:var(--yellow)">現役MC（司会）</strong>です。</p>
     <div class="pills"><span>元お笑い芸人</span><span>YouTuber</span><span>現役MC・司会</span><span>上級心理カウンセラー</span></div>
@@ -211,9 +258,11 @@
   </section>
 
   <!-- 声 -->
-  <section class="reveal">
-    <div class="head"><div class="label">★ VOICE ★</div><h2>受けてみて、<br><span class="big">どう変わった？</span></h2></div>
-    <div class="voice-card">
+  <section class="reveal bg-pink">
+    <span class="deco" style="top:34px;right:18px">🙌</span>
+    <span class="deco" style="bottom:60px;left:16px">💖</span>
+    <div class="head"><span class="sticker tilt-r">うれしい声</span><div class="label" style="margin-top:12px">★ VOICE ★</div><h2>受けてみて、<br><span class="big">どう変わった？</span></h2></div>
+    <div class="voice-card tape tilt-l">
       <div class="voice-who"><img src="assets/yuta_happy.jpg" alt="">Kさん（34歳・会社員）</div>
       <div class="ba">
         <div class="b">＜前＞ 大人数の場で、会話に入れなかった</div>
@@ -225,9 +274,11 @@
   </section>
 
   <!-- 価格 -->
-  <section class="price reveal">
-    <div class="head"><h2>講座のごあんない</h2></div>
-    <div class="price-card">
+  <section class="price reveal dots">
+    <span class="deco" style="top:28px;left:18px">🎉</span>
+    <span class="deco" style="top:28px;right:18px">✨</span>
+    <div class="head"><span class="sticker tilt-l">今だけ！</span><h2 style="margin-top:10px">講座のごあんない</h2></div>
+    <div class="price-card tilt-r">
       <div class="spec">📚 全4回／1回90分（計6時間）<br>👥 少人数制（最大5名）<br>💻 オンライン（Zoom）</div>
       <div class="price-monitor">🎉 期間限定モニター価格</div>
       <div class="price-old">通常 98,000円</div>
@@ -236,7 +287,9 @@
   </section>
 
   <!-- 個別相談 -->
-  <section class="consult reveal" id="consult">
+  <section class="consult reveal" id="consult" style="background-color:#e0905a">
+    <span class="deco" style="top:30px;left:20px">🎤</span>
+    <span class="deco" style="top:40px;right:22px">💬</span>
     <img src="assets/hiroshi.jpg" alt="講師イラスト">
     <h2>まずは、ちょっと<br>話してみませんか？</h2>
     <p class="c-sub">約20分・Zoom／無理な勧誘はしません🙆</p>
@@ -244,8 +297,9 @@
   </section>
 
   <!-- プロフィール -->
-  <section class="profile reveal">
-    <div class="head"><div class="label">この講座をつくった人</div></div>
+  <section class="profile reveal bg-cream dots">
+    <span class="deco" style="top:30px;right:22px">👤</span>
+    <div class="head"><span class="sticker mint tilt-r">講師紹介</span><div class="label" style="margin-top:12px">この講座をつくった人</div></div>
     <img class="ch" src="assets/hiroshi.jpg" alt="前野太志（イラスト）">
     <div class="pname">前野 太志（まえの ひろし）</div>
     <div class="ptitle">元お笑い芸人／上級心理カウンセラー／笑顔ナビゲーター</div>
@@ -254,7 +308,9 @@
   </section>
 
   <!-- final -->
-  <section class="final reveal">
+  <section class="final reveal bg-mint">
+    <span class="deco" style="top:30px;left:20px">🌿</span>
+    <span class="deco" style="top:34px;right:22px">✨</span>
     <h2>空気は、敵じゃない。<br><span class="marker">味方にできる。</span></h2>
     <p>人前で消耗するのは、<br>あなたが弱いからじゃありません。</p>
     <a href="#consult" class="btn">まずは20分、話してみる</a>
@@ -270,6 +326,26 @@
 <div class="bar"><a href="#consult" data-cta>🎤 LINEで個別相談（20分・無料）</a></div>
 
 <script>
+  // セクション境界に波形の区切りを自動挿入（背景色を読み取って色合わせ）
+  (function(){
+    const waves=[
+      'M0,34 L1200,34 L1200,12 C950,30 750,2 600,13 C450,24 250,0 0,15 Z',
+      'M0,34 L1200,34 L1200,16 C980,2 880,30 600,16 C360,4 230,30 0,12 Z'
+    ];
+    const secs=[...document.querySelectorAll('main.lp > section')];
+    secs.forEach((sec,i)=>{
+      if(i===0) return;
+      const prev=getComputedStyle(secs[i-1]).backgroundColor;
+      const cur=getComputedStyle(sec).backgroundColor;
+      const tp=(c)=>c==='rgba(0, 0, 0, 0)'||c==='transparent';
+      if(tp(prev)||tp(cur)||prev===cur) return;
+      const d=document.createElement('div');
+      d.className='wave';
+      d.style.background=prev;
+      d.innerHTML='<svg viewBox="0 0 1200 34" preserveAspectRatio="none"><path d="'+waves[i%2]+'" fill="'+cur+'"/></svg>';
+      sec.parentNode.insertBefore(d,sec);
+    });
+  })();
   const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.1});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
